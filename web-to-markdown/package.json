@@ -1,0 +1,19 @@
+{
+  "name": "web-to-markdown",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "bun run build.ts",
+    "watch": "bun run build.ts --watch"
+  },
+  "dependencies": {
+    "turndown": "^7.1.2",
+    "turndown-plugin-gfm": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/turndown": "^5.0.4",
+    "@types/chrome": "^0.0.260",
+    "typescript": "^5.0.0",
+    "bun-types": "latest"
+  }
+}

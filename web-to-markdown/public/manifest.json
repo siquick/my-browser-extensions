@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Web to Markdown",
+  "version": "1.0.0",
+  "description": "Convert web pages to Markdown with one click",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "clipboardWrite"
+  ],
+  "action": {},
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
