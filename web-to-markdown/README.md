@@ -65,23 +65,6 @@ web-to-markdown/
 └── dist/              # Built extension files
 ```
 
-## Building for Production
-
-1. Update version in `package.json` and `public/manifest.json`
-2. Build the extension:
-```bash
-bun run build
-```
-3. The production-ready extension will be in the `dist` directory
-
-### Publishing to Chrome Web Store
-
-1. Create a ZIP file of the `dist` directory
-2. Go to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole)
-3. Create a new item and upload the ZIP file
-4. Fill in store listing information
-5. Submit for review
-
 ## Development Scripts
 
 - `bun run build` - Build the extension
