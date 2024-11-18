@@ -105,8 +105,34 @@ async function convertAndCopy() {
       // Trim leading/trailing whitespace
       .trim();
 
+    // Add the source URL at the start of the markdown
+    const sourceUrl = window.location.href;
+    const markdownWithSource = `Source: ${sourceUrl}\n\n${cleanedMarkdown}`;
+
     // Copy to clipboard
-    await navigator.clipboard.writeText(cleanedMarkdown);
+    await navigator.clipboard.writeText(markdownWithSource);
+
+    // Generate filename from URL
+    const urlEncoded = encodeURIComponent(sourceUrl)
+      .replace(/%/g, "") // Remove percent signs
+      .replace(/[^a-zA-Z0-9]/g, "_") // Replace non-alphanumeric chars with underscore
+      .substring(0, 100); // Limit length to avoid too long filenames
+    const filename = `${urlEncoded}.txt`;
+
+    // Create and trigger download
+    const blob = new Blob([markdownWithSource], { type: "text/plain" });
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const downloadLink = document.createElement("a");
+    downloadLink.href = downloadUrl;
+    downloadLink.download = filename;
+
+    // Append link to body, click it, then remove it
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+    // Clean up the URL object
+    window.URL.revokeObjectURL(downloadUrl);
 
     // Show success notification
     chrome.runtime.sendMessage({ type: "CONVERSION_SUCCESS" });
