@@ -1,4 +1,5 @@
 import { MarkdownConverter } from "./utils/converter";
+import type { ConversionOptions } from "./types";
 
 // Function to create and show a popup notification
 function showNotification() {
@@ -194,35 +195,20 @@ async function convertAndCopy() {
     const mainContent = contentClone.querySelector('main, [role="main"], #main, .main-content, article, .post-content');
     const contentToConvert = mainContent || contentClone;
 
-    // Convert to Markdown
-    const converter = new MarkdownConverter();
-    const markdown = converter.convert(contentToConvert);
+    // Set conversion options
+    const conversionOptions: ConversionOptions = {
+      cleanupHtml: true,
+      fixRelativeUrls: true,
+      preserveMetadata: true,
+    };
 
-    // Enhanced markdown cleanup
-    const cleanedMarkdown = markdown
-      // Remove any remaining encoded HTML/SVG
-      .replace(/(%3C|\{%)[^}]*(%3E|\}%)/g, "")
-      // Remove CSS/styling blocks
-      .replace(/#mermaid-\d+[\s\S]*?}/g, "")
-      .replace(/\.formkit-form[\s\S]*?}/g, "")
-      // Remove any remaining HTML comments
-      .replace(/<!--[\s\S]*?-->/g, "")
-      // Remove data-attributes
-      .replace(/data-[a-zA-Z-]+="[^"]*"/g, "")
-      // Remove empty links
-      .replace(/\[\]\([^)]*\)/g, "")
-      // Remove multiple blank lines (keep max 2)
-      .replace(/\n{3,}/g, "\n\n")
-      // Remove lines containing only whitespace
-      .replace(/^\s+$/gm, "")
-      // Clean up multiple spaces
-      .replace(/[ \t]+/g, " ")
-      // Trim leading/trailing whitespace
-      .trim();
+    // Convert to Markdown using the enhanced converter
+    const converter = new MarkdownConverter();
+    const markdown = converter.convert(contentToConvert, conversionOptions);
 
     // Add the source URL at the start of the markdown
     const sourceUrl = window.location.href;
-    const markdownWithSource = `Source: ${sourceUrl}\n\n${cleanedMarkdown}`;
+    const markdownWithSource = `Source: ${sourceUrl}\n\n${markdown}`;
 
     // Copy to clipboard
     await navigator.clipboard.writeText(markdownWithSource);
