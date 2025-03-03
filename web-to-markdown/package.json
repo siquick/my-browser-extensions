@@ -1,9 +1,9 @@
 {
   "name": "web-to-markdown",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
-    "build": "bun run build.ts",
+    "build": "rm -rf dist && bun run build.ts",
     "watch": "bun run build.ts --watch"
   },
   "dependencies": {

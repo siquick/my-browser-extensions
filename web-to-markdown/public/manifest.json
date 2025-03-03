@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Web to Markdown",
-  "version": "1.0.0",
-  "description": "Convert web pages to Markdown with one click",
+  "name": "Purepage - Web to Markdown",
+  "version": "1.0.3",
+  "description": "Convert web pages to markdown format - by Purepage",
   "permissions": [
     "activeTab",
     "scripting",
